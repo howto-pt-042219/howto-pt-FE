@@ -1,2 +1,3 @@
 # howto-pt-FE
-How-to Front End
+
+This is the repository for **How-to Front End** project.
