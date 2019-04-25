@@ -1,16 +1,11 @@
 import React from "react";
 import "./App.css";
+import HowToList from "./components/HowToList";
 
 function App() {
   return (
     <div className="App">
-      <h1>Login</h1>
-      <form>
-        <input placeholder="Username" />
-        <input placeholder="Password" />
-        <button>Submit</button>
-        <button>Sign Up</button>
-      </form>
+      <HowToList />
     </div>
   );
 }
