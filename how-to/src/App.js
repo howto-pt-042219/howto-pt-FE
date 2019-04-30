@@ -16,12 +16,16 @@ const StyledContainer = styled.div`
 const StyledNav = styled.div`
   display: flex;
   border: 1px solid purple;
-  margin-left: 20%;
 `;
 
 const StyledPostPage = styled.div`
   display: flex;
   border: 1px solid yellow;
+`;
+
+const StyledPost = styled.div`
+  width: 800px;
+  border: 1px solid blue;
 `;
 
 function App() {
@@ -32,7 +36,10 @@ function App() {
       </StyledNav>
       <StyledPostPage>
         <SideNav />
-        <HowToList />
+        <StyledPost>
+          <button>Add A How-To!</button>
+          <HowToList />
+        </StyledPost>
       </StyledPostPage>
       <Footer />
     </StyledContainer>

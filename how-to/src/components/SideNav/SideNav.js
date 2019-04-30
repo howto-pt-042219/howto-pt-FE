@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 20%;
+  width: 223px;
   height: 800px;
   padding-top: 11%;
   border: 1px solid red;
@@ -18,7 +18,7 @@ const StyledButton = styled.button`
   text-decoration: none;
   border: 1px solid black;
   border-radius: 5px;
-  padding: 26px;
+  padding: 25px;
   ::focus {outline: none};
 `;
 
