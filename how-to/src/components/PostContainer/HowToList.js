@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
-import HowTo from "./HowTo";
+import HowToLink from "./HowToLink";
 
 class HowToList extends React.Component {
   constructor() {
@@ -23,18 +23,11 @@ class HowToList extends React.Component {
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <div>
         {this.state.howToData.map((post, index) => (
-          <Link to={`/howto/${post.id}`}>
-            <HowTo post={post} />
-          </Link>
-          // <Route
-          //   exact
-          //   path={`/howto/${post.id}`}
-          //   render={props => <HowTo post={post} {...props} />}
-          // />
+          <HowToLink post={post} />
         ))}
       </div>
     );

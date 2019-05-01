@@ -1,11 +1,13 @@
 import React from "react";
 import "./App.css";
 import styled from "styled-components";
+import { Route } from "react-router-dom";
 
 import HowToList from "./components/PostContainer/HowToList";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
 import SideNav from "./components/SideNav/SideNav";
+import HowTo from "./components/PostContainer/HowTo";
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -38,7 +40,8 @@ function App() {
         <SideNav />
         <StyledPost>
           <button>Add A How-To!</button>
-          <HowToList />
+          <Route path="/" component={HowToList} />
+          <Route path="/howto/:id" render={props => <HowTo {...props} />} />
         </StyledPost>
       </StyledPostPage>
       <Footer />
