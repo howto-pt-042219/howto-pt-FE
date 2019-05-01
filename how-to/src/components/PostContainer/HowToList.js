@@ -1,5 +1,5 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import styled from "styled-components";
 
@@ -26,6 +26,9 @@ class HowToList extends React.Component {
     // console.log(this.state);
     return (
       <div>
+        <Link to="/howto/how-to-form/">
+          <button>Add A How-To!</button>
+        </Link>
         {this.state.howToData.map((post, index) => (
           <HowToLink post={post} />
         ))}

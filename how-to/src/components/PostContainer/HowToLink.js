@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const ContainerDiv = styled.div`
   display: flex;
@@ -21,10 +21,12 @@ class HowToLink extends React.Component {
   render() {
     console.log(this.props.history);
     return (
-      <ContainerDiv>
-        <h1>{this.props.post.title}</h1>
-        <p>{this.props.post.overview}</p>
-        {/* <p>
+      <Link to={"/howto/:id"}>
+        <ContainerDiv>
+          <h1>{this.props.post.title}</h1>
+          <p>{this.props.post.overview}</p>
+
+          {/* <p>
           {this.props.post.steps.map(step => {
             <>
               <h3>step.title</h3>
@@ -32,7 +34,8 @@ class HowToLink extends React.Component {
             </>;
           })}
         </p> */}
-      </ContainerDiv>
+        </ContainerDiv>
+      </Link>
     );
   }
 }
