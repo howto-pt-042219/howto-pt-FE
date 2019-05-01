@@ -31,23 +31,40 @@ const StyledPost = styled.div`
   border: 1px solid blue;
 `;
 
-function App() {
-  return (
-    <StyledContainer>
-      <StyledNav>
-        <NavBar />
-      </StyledNav>
-      <StyledPostPage>
-        <SideNav />
-        <StyledPost>
-          <Route path="/howto/" exact component={HowToList} />
-          <Route path="/howto/how-to-form/" component={HowToForm} />
-          <Route path="/howto/:id" render={props => <HowTo {...props} />} />
-        </StyledPost>
-      </StyledPostPage>
-      <Footer />
-    </StyledContainer>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      howToData: []
+    };
+  }
+  render() {
+    return (
+      <StyledContainer>
+        <StyledNav>
+          <NavBar />
+        </StyledNav>
+        <StyledPostPage>
+          <SideNav />
+          <StyledPost>
+            <Route path="/howto/" exact component={HowToList} />
+            <Route
+              exact
+              path="/howto/how-to-form/"
+              exact
+              component={HowToForm}
+            />
+            <Route
+              exact
+              path="/howto/id/:id"
+              render={props => <HowTo {...props} />}
+            />
+          </StyledPost>
+        </StyledPostPage>
+        <Footer />
+      </StyledContainer>
+    );
+  }
 }
 
 export default App;
