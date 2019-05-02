@@ -26,7 +26,7 @@ class HowToList extends React.Component {
     // console.log(this.state);
     return (
       <div>
-        <Link to="/howto/how-to-form/">
+        <Link to="/how-to-form/">
           <button>Add A How-To!</button>
         </Link>
         {this.state.howToData.map((post, index) => (

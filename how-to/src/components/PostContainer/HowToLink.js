@@ -19,9 +19,9 @@ class HowToLink extends React.Component {
   }
 
   render() {
-    console.log(this.props.history);
+    // console.log(this.props.history);
     return (
-      <Link to={"/howto/id/:id"}>
+      <Link to={`/howto/${this.props.post.id}`}>
         <ContainerDiv>
           <h1>{this.props.post.title}</h1>
           <p>{this.props.post.overview}</p>

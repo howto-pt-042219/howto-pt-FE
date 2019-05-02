@@ -48,15 +48,10 @@ class App extends React.Component {
           <SideNav />
           <StyledPost>
             <Route path="/howto/" exact component={HowToList} />
+            <Route exact path="/how-to-form/" exact component={HowToForm} />
             <Route
               exact
-              path="/howto/how-to-form/"
-              exact
-              component={HowToForm}
-            />
-            <Route
-              exact
-              path="/howto/id/:id"
+              path="/howto/:id"
               render={props => <HowTo {...props} />}
             />
           </StyledPost>
