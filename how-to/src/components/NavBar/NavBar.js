@@ -13,10 +13,13 @@ const ContainerDiv = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
+  // background-color: #b41010;
 `;
 
 const StyledImg = styled.img`
   margin-left: 35px;
+  padding-top: 12px;
+  background-color: white;
 `;
 
 function NavBar(props) {

@@ -19,6 +19,7 @@ const StyledContainer = styled.div`
 const StyledNav = styled.div`
   display: flex;
   border: 1px solid purple;
+  height: 100%;
 `;
 
 const StyledPostPage = styled.div`
@@ -30,6 +31,10 @@ const StyledPost = styled.div`
   width: 800px;
   border: 1px solid blue;
 `;
+
+// const PostMarginLeft = styled.div`
+//   margin-left: 196px;
+// `;
 
 class App extends React.Component {
   constructor() {
