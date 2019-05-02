@@ -24,7 +24,8 @@ const StyledButton = styled.button`
   color: white;
   font-size: 15px;
   padding: 25px;
-  ::focus {outline: none};
+  :focus {outline: none};
+  :hover {background-color: white; color:#115D8D; border: 1px solid #115D8D }
 `;
 
 function SideNav() {

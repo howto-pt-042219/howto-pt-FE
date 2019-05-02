@@ -4,9 +4,9 @@ function Steps(props) {
   return (
     <div>
       <ol>
-        <li>{props.title}</li>
+        <li>{props.step.title}</li>
       </ol>
-      <p>{props.description}</p>
+      <p>{props.step.description}</p>
     </div>
   );
 }

@@ -23,7 +23,7 @@ class HowToList extends React.Component {
   }
 
   render() {
-    // console.log(this.state);
+    console.log(this.state);
     return (
       <div>
         <Link to="/how-to-form/">
