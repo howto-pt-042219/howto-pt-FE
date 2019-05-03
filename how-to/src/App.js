@@ -58,6 +58,15 @@ class App extends React.Component {
     this.setState({ howToData: newHowTo });
   };
 
+  deleteHowTo = howTo => {
+    axios
+      .delete(`https://howto-pt-042219.herokuapp.com/api/howto/${howTo}`)
+      .then(res => {
+        this.setState({ howToData: res.data });
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
     // console.log(this.state);
     return (
@@ -78,7 +87,9 @@ class App extends React.Component {
             <Route
               exact
               path="/howto/:id"
-              render={props => <HowTo {...props} />}
+              render={props => (
+                <HowTo {...props} deleteHowTo={this.deleteHowTo} />
+              )}
             />
           </StyledPost>
         </StyledPostPage>

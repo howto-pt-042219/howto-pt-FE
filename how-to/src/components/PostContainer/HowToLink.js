@@ -17,6 +17,12 @@ const StyledLink = styled(Link)`
   text-align: center;
 `;
 
+const StyledLikes = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+`;
+
 class HowToLink extends React.Component {
   constructor(props) {
     super(props);
@@ -42,6 +48,10 @@ class HowToLink extends React.Component {
             </>;
           })}
         </p> */}
+          <StyledLikes>
+            <p>{this.props.post.likes} Likes</p>
+            <p>{this.props.post.tries} Tries</p>
+          </StyledLikes>
         </ContainerDiv>
       </StyledLink>
     );

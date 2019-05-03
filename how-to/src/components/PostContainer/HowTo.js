@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import Step from "./Steps";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledButton = styled.button`
   border: none;
@@ -71,6 +72,12 @@ class HowTo extends React.Component {
     element.classList.toggle("no-show");
   }
 
+  deleteHowTo = e => {
+    e.preventDefault();
+    const id = this.props.match.params.id;
+    this.props.deleteHowTo(id);
+  };
+
   render() {
     // console.log(this.state.howToData);
     return (
@@ -80,8 +87,8 @@ class HowTo extends React.Component {
         <div id="delete" className="no-show show">
           <h3>Are you sure you want to delete this How To?</h3>
           <ButtonDiv>
-            <DeleteButton>Yes</DeleteButton>
-            <DeleteButton>No</DeleteButton>
+            <DeleteButton onClick={this.deleteHowTo}>Yes</DeleteButton>
+            <DeleteButton onClick={this.toggleDisplay}>No</DeleteButton>
           </ButtonDiv>
         </div>
         <h1>{this.state.howToData.title}</h1>
