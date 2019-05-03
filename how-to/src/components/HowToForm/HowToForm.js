@@ -34,6 +34,7 @@ class HowToForm extends React.Component {
       title: "",
       overview: ""
     });
+    this.props.history.push("/howto/");
   };
 
   handleChanges = e => {

@@ -41,7 +41,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      howToData: []
+      howToData: [],
+      filteredData: []
     };
   }
 
@@ -67,22 +68,46 @@ class App extends React.Component {
       .catch(err => console.log(err));
   };
 
+  filterPost = e => {
+    e.preventDefault();
+    const search = this.state.howToData.filter(data => {
+      if (data.title.includes(e.target.value)) {
+        return data;
+      }
+    });
+    this.setState({ filteredData: search });
+  };
+
   render() {
     // console.log(this.state);
     return (
       <StyledContainer>
         <StyledNav>
-          <NavBar />
+          <NavBar filterPost={this.filterPost} />
         </StyledNav>
         <StyledPostPage>
           <SideNav />
           <StyledPost>
-            <Route path="/howto/" exact component={HowToList} />
+            <Route
+              path="/howto/"
+              exact
+              render={props => (
+                <HowToList
+                  filteredData={
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.howToData
+                  }
+                />
+              )}
+            />
             <Route
               exact
               path="/how-to-form/"
               exact
-              render={props => <HowToForm submitHowTo={this.submitHowTo} />}
+              render={props => (
+                <HowToForm submitHowTo={this.submitHowTo} {...props} />
+              )}
             />
             <Route
               exact

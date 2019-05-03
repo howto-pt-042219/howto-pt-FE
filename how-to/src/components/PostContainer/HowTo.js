@@ -73,9 +73,9 @@ class HowTo extends React.Component {
   }
 
   deleteHowTo = e => {
-    e.preventDefault();
     const id = this.props.match.params.id;
     this.props.deleteHowTo(id);
+    this.props.history.push("/howto");
   };
 
   render() {

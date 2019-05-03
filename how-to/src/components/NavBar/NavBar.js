@@ -22,21 +22,38 @@ const StyledImg = styled.img`
   background-color: white;
 `;
 
-function NavBar(props) {
-  return (
-    <ContainerDiv>
-      <Link to="/howto/">
-        <StyledImg
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNzMiIGhlaWdo%0D%0AdD0iNjgiIHZpZXdCb3g9IjAgMCAxNzMgNjgiPjx0ZXh0IGZpbGw9IiM2OTY3NjciIGZvbnQtc2l6%0D%0AZT0iNDkiIGZvbnQtZmFtaWx5PSJBbGZhU2xhYk9uZS1SZWd1bGFyLCBBbGZhIFNsYWIgT25lIj48%0D%0AdHNwYW4geD0iMS41MzQiIHk9IjUxIj5IT1c8L3RzcGFuPjx0c3BhbiB5PSI1MSIgZmlsbD0iI2I0%0D%0AMTAxMCI+MjwvdHNwYW4+PC90ZXh0Pjwvc3ZnPg=="
-          alt="Logo Image"
-        />
-      </Link>
-      <StyledDiv>
-        <h3>Username</h3>
-        <input placeholder="search" />
-      </StyledDiv>
-    </ContainerDiv>
-  );
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: ""
+    };
+  }
+
+  handleChange = e => {
+    this.setState({ [e.target.value]: e.target.value });
+  };
+
+  render() {
+    return (
+      <ContainerDiv>
+        <Link to="/howto/">
+          <StyledImg
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNzMiIGhlaWdo%0D%0AdD0iNjgiIHZpZXdCb3g9IjAgMCAxNzMgNjgiPjx0ZXh0IGZpbGw9IiM2OTY3NjciIGZvbnQtc2l6%0D%0AZT0iNDkiIGZvbnQtZmFtaWx5PSJBbGZhU2xhYk9uZS1SZWd1bGFyLCBBbGZhIFNsYWIgT25lIj48%0D%0AdHNwYW4geD0iMS41MzQiIHk9IjUxIj5IT1c8L3RzcGFuPjx0c3BhbiB5PSI1MSIgZmlsbD0iI2I0%0D%0AMTAxMCI+MjwvdHNwYW4+PC90ZXh0Pjwvc3ZnPg=="
+            alt="Logo Image"
+          />
+        </Link>
+        <StyledDiv>
+          <h3>Username</h3>
+          <input
+            placeholder="search"
+            name="search"
+            onChange={this.props.filterPost}
+          />
+        </StyledDiv>
+      </ContainerDiv>
+    );
+  }
 }
 
 export default NavBar;
