@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import styled from "styled-components";
+import axios from "axios";
 import { Route, Link } from "react-router-dom";
 
 import HowToList from "./components/PostContainer/HowToList";
@@ -19,6 +20,7 @@ const StyledContainer = styled.div`
 const StyledNav = styled.div`
   display: flex;
   border: 1px solid purple;
+  height: 100%;
 `;
 
 const StyledPostPage = styled.div`
@@ -31,6 +33,10 @@ const StyledPost = styled.div`
   border: 1px solid blue;
 `;
 
+// const PostMarginLeft = styled.div`
+//   margin-left: 196px;
+// `;
+
 class App extends React.Component {
   constructor() {
     super();
@@ -38,7 +44,31 @@ class App extends React.Component {
       howToData: []
     };
   }
+
+  componentDidMount() {
+    axios
+      .get("https://howto-pt-042219.herokuapp.com/api/howto/")
+      .then(res => {
+        this.setState({ howToData: res.data });
+      })
+      .catch(err => console.log(err));
+  }
+
+  submitHowTo = newHowTo => {
+    this.setState({ howToData: newHowTo });
+  };
+
+  deleteHowTo = howTo => {
+    axios
+      .delete(`https://howto-pt-042219.herokuapp.com/api/howto/${howTo}`)
+      .then(res => {
+        this.setState({ howToData: res.data });
+      })
+      .catch(err => console.log(err));
+  };
+
   render() {
+    // console.log(this.state);
     return (
       <StyledContainer>
         <StyledNav>
@@ -48,11 +78,18 @@ class App extends React.Component {
           <SideNav />
           <StyledPost>
             <Route path="/howto/" exact component={HowToList} />
-            <Route exact path="/how-to-form/" exact component={HowToForm} />
+            <Route
+              exact
+              path="/how-to-form/"
+              exact
+              render={props => <HowToForm submitHowTo={this.submitHowTo} />}
+            />
             <Route
               exact
               path="/howto/:id"
-              render={props => <HowTo {...props} />}
+              render={props => (
+                <HowTo {...props} deleteHowTo={this.deleteHowTo} />
+              )}
             />
           </StyledPost>
         </StyledPostPage>
