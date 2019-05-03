@@ -35,7 +35,9 @@ class Login extends Component {
   handleLoginSubmit = e => {
     const user = this.state.username;
     localStorage.setItem("user", user);
+    this.setState = ({ creator: this.creator});
     window.location.reload();
+
   };
 
 //   handleLoginSubmit = event => {
@@ -99,7 +101,6 @@ handleViewerLoginType = e => {
                 type="radio"
                 name="creator"
                 onClick={this.handleCreatorLoginType}
-                checked
             /> 
             Create account as creator
           </div>
