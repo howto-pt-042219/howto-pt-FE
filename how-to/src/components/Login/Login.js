@@ -35,7 +35,7 @@ class Login extends Component {
   handleLoginSubmit = e => {
     const user = this.state.username;
     localStorage.setItem("user", user);
-    this.setState = ({ creator: this.creator});
+    this.setState = ({ creator: this.state.creator});
     window.location.reload();
 
   };
@@ -61,11 +61,11 @@ class Login extends Component {
 
 handleCreatorLoginType = e => {
     this.setState = ({ creator: true});
-    console.log("Creator", this.creator)
+    console.log("Creator", this.state.creator)
 }
 handleViewerLoginType = e => {
     this.setState = ({ creator: false});
-    console.log("Viewer", this.creator)
+    console.log("Viewer", this.state.creator)
 }
 
   render() {
