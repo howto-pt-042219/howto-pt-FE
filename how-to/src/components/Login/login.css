@@ -1,0 +1,86 @@
+.loginContainer {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.loginTypeCreator{
+  margin: 20px 0 8px 0;
+}
+
+.loginButton {
+  margin: 10px 0 0 0;
+  padding: 4px 0;
+  width: 100%;
+}
+
+.loginButton:active {
+  background: blue;
+  outline: none;
+  color: white;
+}
+
+.loginButton:focus {
+  outline: none;
+}
+
+.loginButton:disabled {
+  border-radius: 3px;
+  opacity: 0.5;
+}
+
+
+.loginButton:enabled {
+  border: 1px solid lightgray;
+  border-radius: 3px;
+  font-weight: bold;
+  
+}
+
+.inputFields {
+  /* border: 1px solid red; */
+  width: 100%;
+}
+
+
+.inputFields input {
+  display: flex;
+  margin: 0 auto;
+  text-align: center;
+  width: 99%;
+  border-radius: 3px;
+  border: 1px solid #ccc
+}
+
+.inputFields input:focus {
+  outline: none;
+  border: 1px solid blue;
+}
+
+.inputFields input:active {
+  outline: none;
+  background: transparent;
+}
+
+input:-webkit-autofill {
+  transition: "color 9999s ease-out, background-color 9999s ease-out";
+  transition-delay: 9999s;
+}
+
+
+
+.viewerForm{
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  margin: 20px;
+  padding: 30px;
+  margin: 0 auto;
+  min-width: 25%;
+}
+
+
+
+/* Blue: 115D8D
+Red: B41010
+Yellow: ECF25D
+Dark yellow: D3BA51 */

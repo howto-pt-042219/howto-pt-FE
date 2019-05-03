@@ -3,6 +3,7 @@ import "./App.css";
 import styled from "styled-components";
 import { Route, Link } from "react-router-dom";
 
+import Authenticate from './components/Authentication/Authenticate';
 import HowToList from "./components/PostContainer/HowToList";
 import NavBar from "./components/NavBar/NavBar";
 import Footer from "./components/Footer/Footer";
@@ -62,4 +63,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default Authenticate(App);
