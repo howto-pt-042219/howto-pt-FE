@@ -6,3 +6,22 @@
 @light-yellow: rgba(236, 242, 93, 0.09);
 @dark-yellow: rgba(211, 186, 81, 0.3);
 @blue: #2384A8; */
+
+.show {
+  background-color: lightgrey;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  margin-top: 5px;
+  border: 1px solid #b41010;
+}
+
+.no-show {
+  display: none;
+}
+
+#delete {
+  /* width: 100%; */
+}

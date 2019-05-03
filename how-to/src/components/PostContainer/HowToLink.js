@@ -34,7 +34,6 @@ class HowToLink extends React.Component {
         <ContainerDiv>
           <h1>{this.props.post.title}</h1>
           <p>{this.props.post.overview}</p>
-
           {/* <p>
           {this.props.post.steps.map(step => {
             <>

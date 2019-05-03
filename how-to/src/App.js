@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import styled from "styled-components";
+import axios from "axios";
 import { Route, Link } from "react-router-dom";
 
 import HowToList from "./components/PostContainer/HowToList";
@@ -43,7 +44,22 @@ class App extends React.Component {
       howToData: []
     };
   }
+
+  componentDidMount() {
+    axios
+      .get("https://howto-pt-042219.herokuapp.com/api/howto/")
+      .then(res => {
+        this.setState({ howToData: res.data });
+      })
+      .catch(err => console.log(err));
+  }
+
+  submitHowTo = newHowTo => {
+    this.setState({ howToData: newHowTo });
+  };
+
   render() {
+    // console.log(this.state);
     return (
       <StyledContainer>
         <StyledNav>
@@ -53,7 +69,12 @@ class App extends React.Component {
           <SideNav />
           <StyledPost>
             <Route path="/howto/" exact component={HowToList} />
-            <Route exact path="/how-to-form/" exact component={HowToForm} />
+            <Route
+              exact
+              path="/how-to-form/"
+              exact
+              render={props => <HowToForm submitHowTo={this.submitHowTo} />}
+            />
             <Route
               exact
               path="/howto/:id"

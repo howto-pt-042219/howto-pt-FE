@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 const StyledForm = styled.form`
   display: flex;
@@ -12,30 +13,28 @@ const ContainerDiv = styled.div`
 `;
 
 class HowToForm extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       title: "",
       overview: "",
-      author: "",
-      steps: [
-        {
-          title: "",
-          description: ""
-        }
-      ],
-      reviews: [
-        {
-          text: "",
-          username: ""
-        }
-      ]
+      user_id: 1
     };
   }
 
-  handleSubmit(step) {
-    // push step to DB
-  }
+  handleSubmit = e => {
+    e.preventDefault();
+    axios
+      .post("https://howto-pt-042219.herokuapp.com/api/howto", this.state)
+      .then(res => {
+        this.props.submitHowTo(res.data);
+      })
+      .catch(err => console.log(err));
+    this.setState({
+      title: "",
+      overview: ""
+    });
+  };
 
   handleChanges = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -64,20 +63,22 @@ class HowToForm extends React.Component {
     return (
       <>
         <div>
-          <h3>Your How2 </h3>
-          <h1>{this.state.title}</h1>
-          <h2>{this.state.overview}</h2>
-          <h3>{this.state.author}</h3>
-          {this.state.steps.map(step => {
-            <>
-              <h4>{step.title}</h4>
-              <p>{step.description}</p>
-            </>;
-          })}
+          <h1>Your How2 </h1>
+          <h1>How2 Title: {this.state.title}</h1>
+          <h2>How2 Overview: {this.state.overview}</h2>
+          <h3>Author: {this.state.author}</h3>
+          {/* {this.state.steps.map((step, index) => {
+            return (
+              <div>
+                <h4>{step.title}</h4>
+                <p>{step.description}</p>
+              </div>
+            );
+          })} */}
         </div>
 
         <h1>Follow Steps To Add How2</h1>
-        <StyledForm>
+        <StyledForm onSubmit={this.handleSubmit}>
           <input
             onChange={this.handleChanges}
             name="title"
@@ -89,7 +90,8 @@ class HowToForm extends React.Component {
             name="overview"
             placeholder="Overview"
           />
-          <input
+
+          {/* <input
             onChange={this.handleChanges}
             name="stepTitle"
             placeholder="Step Title"
@@ -100,7 +102,7 @@ class HowToForm extends React.Component {
             placeholder="Step Description"
           />
           <ContainerDiv id="container" />
-          <button onClick={this.handleAddStep}>Add A Step</button>
+          <button onClick={this.handleAddStep}>Add A Step</button> */}
           <button>Submit How2</button>
         </StyledForm>
       </>
