@@ -39,11 +39,19 @@ class App extends React.Component {
       howToData: []
     };
   }
+
+  handleLogOut = e => {
+    localStorage.removeItem("user");
+    console.log("logging out");
+    window.location.reload();
+  };
+
   render() {
     return (
       <StyledContainer>
         <StyledNav>
           <NavBar />
+          <button onClick={this.handleLogOut}>Log Out</button>
         </StyledNav>
         <StyledPostPage>
           <SideNav />
