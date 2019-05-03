@@ -57,6 +57,15 @@ class Login extends Component {
 //     });
 //   };
 
+handleCreatorLoginType = e => {
+    this.setState = ({ creator: true});
+    console.log("Creator", this.creator)
+}
+handleViewerLoginType = e => {
+    this.setState = ({ creator: false});
+    console.log("Viewer", this.creator)
+}
+
   render() {
     return (
       <div className="loginContainer">
@@ -89,7 +98,7 @@ class Login extends Component {
             <input
                 type="radio"
                 name="creator"
-                onClick=""
+                onClick={this.handleCreatorLoginType}
                 checked
             /> 
             Create account as creator
@@ -98,7 +107,7 @@ class Login extends Component {
              <input
                 type="radio"
                 name="creator"
-                onClick=""
+                onClick={this.handleViewerLoginType}
             /> 
             Create account as viewer
           </div>
