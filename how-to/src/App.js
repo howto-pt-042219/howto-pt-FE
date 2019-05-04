@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import styled from "styled-components";
 import axios from "axios";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, withRouter } from "react-router-dom";
 
 import HowToList from "./components/PostContainer/HowToList";
 import NavBar from "./components/NavBar/NavBar";
@@ -10,6 +10,8 @@ import Footer from "./components/Footer/Footer";
 import SideNav from "./components/SideNav/SideNav";
 import HowTo from "./components/PostContainer/HowTo";
 import HowToForm from "./components/HowToForm/HowToForm";
+import Login from './components/Auth/Login';
+import SignUp from './components/Auth/SignUp';
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -67,16 +69,23 @@ class App extends React.Component {
       .catch(err => console.log(err));
   };
 
+  logout = () => {
+    localStorage.removeItem('jwt');
+    this.props.history.push('/');
+  }
+
   render() {
     // console.log(this.state);
     return (
       <StyledContainer>
         <StyledNav>
-          <NavBar />
+          <NavBar logout={this.logout} />
         </StyledNav>
         <StyledPostPage>
           <SideNav />
           <StyledPost>
+            <Route path="/" exact component={Login} />
+            <Route path="/signup" component={SignUp} />
             <Route path="/howto/" exact component={HowToList} />
             <Route
               exact
@@ -99,4 +108,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withRouter(App);
