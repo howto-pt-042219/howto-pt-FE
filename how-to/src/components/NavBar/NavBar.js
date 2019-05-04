@@ -34,6 +34,12 @@ class NavBar extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  submitSearch = e => {
+    e.preventDefault();
+    this.props.filterPost(this.state.search)
+    this.setState({ search: ''})
+  }
+
   render() {
     return (
       <ContainerDiv>
@@ -45,11 +51,14 @@ class NavBar extends React.Component {
         </Link>
         <StyledDiv>
           <h3>Username</h3>
-          <form>
+
+          <form onSubmit={this.submitSearch}>
             <input
               placeholder="search"
               name="search"
-              onChange={this.props.filterPost}
+              value={this.state.search}
+              onChange={this.handleChange}
+              type='text'
             />
           </form>
         </StyledDiv>

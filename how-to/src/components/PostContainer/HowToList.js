@@ -34,9 +34,7 @@ const StyledButton = styled.button`
 class HowToList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      howToData: props.filteredData
-    };
+    this.state = {};
   }
 
   // componentDidMount() {
@@ -48,19 +46,16 @@ class HowToList extends React.Component {
   //     .catch(err => console.log(err));
   // }
 
-  // componentDidUpdate() {
-  //   this.setState({ howToData: this.props.filteredData });
-  // }
+ 
 
   render() {
-    // console.log(this.state);
     return (
       <StyledContainer>
         <Link to="/how-to-form/">
           <StyledButton>Add A How-To!</StyledButton>
         </Link>
-        {this.state.howToData.map((post, index) => (
-          <HowToLink post={post} />
+        {this.props.filteredData.map(post => (
+          <HowToLink post={post} key={post.id} />
         ))}
       </StyledContainer>
     );
