@@ -48,7 +48,7 @@ class HowToList extends React.Component {
   //     .catch(err => console.log(err));
   // }
 
-  // componentDidMount() {
+  // componentDidUpdate() {
   //   this.setState({ howToData: this.props.filteredData });
   // }
 

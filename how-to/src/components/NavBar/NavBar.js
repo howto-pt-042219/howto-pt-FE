@@ -31,7 +31,7 @@ class NavBar extends React.Component {
   }
 
   handleChange = e => {
-    this.setState({ [e.target.value]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {
@@ -45,11 +45,15 @@ class NavBar extends React.Component {
         </Link>
         <StyledDiv>
           <h3>Username</h3>
-          <input
-            placeholder="search"
-            name="search"
-            onChange={this.props.filterPost}
-          />
+          <form onSubmit={this.props.filterPost}>
+            <input
+              placeholder="search"
+              name="search"
+              value={this.state.search}
+              onChange={this.handleChange}
+            />
+            <button>Search</button>
+          </form>
         </StyledDiv>
       </ContainerDiv>
     );

@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import SideNav from "./components/SideNav/SideNav";
 import HowTo from "./components/PostContainer/HowTo";
 import HowToForm from "./components/HowToForm/HowToForm";
+import StepForm from "./components/HowToForm/StepForm";
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -115,6 +116,11 @@ class App extends React.Component {
               render={props => (
                 <HowTo {...props} deleteHowTo={this.deleteHowTo} />
               )}
+            />
+            <Route
+              exact
+              path="/step-form"
+              render={props => <StepForm {...props} />}
             />
           </StyledPost>
         </StyledPostPage>
