@@ -45,14 +45,12 @@ class NavBar extends React.Component {
         </Link>
         <StyledDiv>
           <h3>Username</h3>
-          <form onSubmit={this.props.filterPost}>
+          <form>
             <input
               placeholder="search"
               name="search"
-              value={this.state.search}
-              onChange={this.handleChange}
+              onChange={this.props.filterPost}
             />
-            <button>Search</button>
           </form>
         </StyledDiv>
       </ContainerDiv>
