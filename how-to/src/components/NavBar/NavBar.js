@@ -51,6 +51,7 @@ class NavBar extends React.Component {
         </Link>
         <StyledDiv>
           <h3>Username</h3>
+
           <form onSubmit={this.submitSearch}>
             <input
               placeholder="search"
@@ -59,7 +60,6 @@ class NavBar extends React.Component {
               onChange={this.handleChange}
               type='text'
             />
-            <button>Search</button>
           </form>
         </StyledDiv>
       </ContainerDiv>
