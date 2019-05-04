@@ -23,6 +23,7 @@ const StyledImg = styled.img`
 `;
 
 function NavBar(props) {
+
   return (
     <ContainerDiv>
       <Link to="/howto/">
@@ -35,6 +36,7 @@ function NavBar(props) {
         <h3>Username</h3>
         <input placeholder="search" />
       </StyledDiv>
+      <button onClick={props.logout}>Logout</button>
     </ContainerDiv>
   );
 }
