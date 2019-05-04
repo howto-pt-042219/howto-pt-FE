@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import styled from "styled-components";
 import axios from "axios";
-import { Route, Link, withRouter } from "react-router-dom";
+import { Route, withRouter } from "react-router-dom";
 
 import HowToList from "./components/PostContainer/HowToList";
 import NavBar from "./components/NavBar/NavBar";
@@ -12,6 +12,7 @@ import HowTo from "./components/PostContainer/HowTo";
 import HowToForm from "./components/HowToForm/HowToForm";
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
+import StepForm from "./components/HowToForm/StepForm";
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -43,7 +44,8 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      howToData: []
+      howToData: [],
+      filteredData: []
     };
   }
 
@@ -74,24 +76,41 @@ class App extends React.Component {
     this.props.history.push('/');
   }
 
+  filterPost = query => {
+    const search = this.state.howToData.filter(data => data.title.toLowerCase().includes(query.toLowerCase()));
+    this.setState({ filteredData: search });
+  };
+
   render() {
-    // console.log(this.state);
     return (
       <StyledContainer>
         <StyledNav>
-          <NavBar logout={this.logout} />
+          <NavBar filterPost={this.filterPost} logout={this.logout} />
         </StyledNav>
         <StyledPostPage>
           <SideNav />
           <StyledPost>
             <Route path="/" exact component={Login} />
             <Route path="/signup" component={SignUp} />
-            <Route path="/howto/" exact component={HowToList} />
             <Route
+              path="/howto/"
               exact
+              render={props => (
+                <HowToList
+                  filteredData={
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.howToData
+                  }
+                />
+              )}
+            />
+            <Route
               path="/how-to-form/"
               exact
-              render={props => <HowToForm submitHowTo={this.submitHowTo} />}
+              render={props => (
+                <HowToForm submitHowTo={this.submitHowTo} {...props} />
+              )}
             />
             <Route
               exact
@@ -99,6 +118,11 @@ class App extends React.Component {
               render={props => (
                 <HowTo {...props} deleteHowTo={this.deleteHowTo} />
               )}
+            />
+            <Route
+              exact
+              path="/step-form"
+              render={props => <StepForm {...props} />}
             />
           </StyledPost>
         </StyledPostPage>

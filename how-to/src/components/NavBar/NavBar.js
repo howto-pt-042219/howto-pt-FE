@@ -22,23 +22,49 @@ const StyledImg = styled.img`
   background-color: white;
 `;
 
-function NavBar(props) {
+class NavBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: ""
+    };
+  }
 
-  return (
-    <ContainerDiv>
-      <Link to="/howto/">
-        <StyledImg
-          src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNzMiIGhlaWdo%0D%0AdD0iNjgiIHZpZXdCb3g9IjAgMCAxNzMgNjgiPjx0ZXh0IGZpbGw9IiM2OTY3NjciIGZvbnQtc2l6%0D%0AZT0iNDkiIGZvbnQtZmFtaWx5PSJBbGZhU2xhYk9uZS1SZWd1bGFyLCBBbGZhIFNsYWIgT25lIj48%0D%0AdHNwYW4geD0iMS41MzQiIHk9IjUxIj5IT1c8L3RzcGFuPjx0c3BhbiB5PSI1MSIgZmlsbD0iI2I0%0D%0AMTAxMCI+MjwvdHNwYW4+PC90ZXh0Pjwvc3ZnPg=="
-          alt="Logo Image"
-        />
-      </Link>
-      <StyledDiv>
-        <h3>Username</h3>
-        <input placeholder="search" />
-      </StyledDiv>
-      <button onClick={props.logout}>Logout</button>
-    </ContainerDiv>
-  );
+  handleChange = e => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  submitSearch = e => {
+    e.preventDefault();
+    this.props.filterPost(this.state.search)
+    this.setState({ search: ''})
+  }
+
+  render() {
+    return (
+      <ContainerDiv>
+        <Link to="/howto/">
+          <StyledImg
+            src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxNzMiIGhlaWdo%0D%0AdD0iNjgiIHZpZXdCb3g9IjAgMCAxNzMgNjgiPjx0ZXh0IGZpbGw9IiM2OTY3NjciIGZvbnQtc2l6%0D%0AZT0iNDkiIGZvbnQtZmFtaWx5PSJBbGZhU2xhYk9uZS1SZWd1bGFyLCBBbGZhIFNsYWIgT25lIj48%0D%0AdHNwYW4geD0iMS41MzQiIHk9IjUxIj5IT1c8L3RzcGFuPjx0c3BhbiB5PSI1MSIgZmlsbD0iI2I0%0D%0AMTAxMCI+MjwvdHNwYW4+PC90ZXh0Pjwvc3ZnPg=="
+            alt="Logo Image"
+          />
+        </Link>
+        <StyledDiv>
+          <h3>Username</h3>
+          <form onSubmit={this.submitSearch}>
+            <input
+              placeholder="search"
+              name="search"
+              value={this.state.search}
+              onChange={this.handleChange}
+              type='text'
+            />
+            <button>Search</button>
+          </form>
+        </StyledDiv>
+      </ContainerDiv>
+    );
+  }
 }
 
 export default NavBar;

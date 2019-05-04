@@ -32,31 +32,30 @@ const StyledButton = styled.button`
 `;
 
 class HowToList extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      howToData: []
-    };
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  componentDidMount() {
-    axios
-      .get(`https://howto-pt-042219.herokuapp.com/api/howto/`)
-      .then(res => {
-        this.setState({ howToData: res.data });
-      })
-      .catch(err => console.log(err));
-  }
+  // componentDidMount() {
+  //   axios
+  //     .get(`https://howto-pt-042219.herokuapp.com/api/howto/`)
+  //     .then(res => {
+  //       this.setState({ howToData: res.data });
+  //     })
+  //     .catch(err => console.log(err));
+  // }
+
+ 
 
   render() {
-    console.log(this.state);
     return (
       <StyledContainer>
         <Link to="/how-to-form/">
           <StyledButton>Add A How-To!</StyledButton>
         </Link>
-        {this.state.howToData.map((post, index) => (
-          <HowToLink post={post} />
+        {this.props.filteredData.map(post => (
+          <HowToLink post={post} key={post.id} />
         ))}
       </StyledContainer>
     );

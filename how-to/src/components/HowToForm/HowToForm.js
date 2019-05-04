@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 const StyledForm = styled.form`
   display: flex;
@@ -34,6 +35,7 @@ class HowToForm extends React.Component {
       title: "",
       overview: ""
     });
+    this.props.history.push("/step-form");
   };
 
   handleChanges = e => {
