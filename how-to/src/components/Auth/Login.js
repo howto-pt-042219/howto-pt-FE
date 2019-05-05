@@ -34,7 +34,7 @@ const InputBox = styled.input`
 
     :focus {outline-color: #b41010};
     :-webkit-autofill {
-     border: 1px solid #ccc;
+     
     -webkit-box-shadow: inset 0 0 0px 9999px white;
     }
     
