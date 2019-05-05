@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import axios from 'axios';
+import SignUp from './SignUp'
+import { Link } from "react-router-dom";
 
 const LoginBox = styled.form`
   display: flex;
   justify-content: center;
-  margin: 10%;
+  margin: 10% 10% 2% 10%;
 `;
 
 const LoginButton = styled.button`
@@ -38,8 +40,15 @@ const InputBox = styled.input`
     :-webkit-autofill {
     -webkit-box-shadow: inset 0 0 0px 9999px white;
     }
-    
 }
+`;
+
+const SignupLink = styled(Link)`
+    color: #B41010;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    
 `;
 
 class Login extends Component {
@@ -96,6 +105,7 @@ class Login extends Component {
             >Login</LoginButton>
           </form>
         </LoginBox>
+        <SignupLink to="/signup" component={SignUp}>Sign Up!</SignupLink>
       </div>
     )
   }
