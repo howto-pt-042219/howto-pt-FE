@@ -3,6 +3,7 @@ import axios from "axios";
 import Step from "./Steps";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Reviews from "./Reviews";
 
 const StyledButton = styled.button`
   border: none;
@@ -53,7 +54,8 @@ class HowTo extends React.Component {
     super(props);
     this.state = {
       howToData: [],
-      steps: []
+      steps: [],
+      reviews: []
     };
   }
 
@@ -100,6 +102,7 @@ class HowTo extends React.Component {
             <Step step={step} />
           ))}
         </div>
+        <Reviews {...this.props} submitData={this.props.submitData} />
       </ContainerDiv>
     );
   }

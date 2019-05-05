@@ -10,9 +10,10 @@ import Footer from "./components/Footer/Footer";
 import SideNav from "./components/SideNav/SideNav";
 import HowTo from "./components/PostContainer/HowTo";
 import HowToForm from "./components/HowToForm/HowToForm";
-import Login from './components/Auth/Login';
-import SignUp from './components/Auth/SignUp';
+import Login from "./components/Auth/Login";
+import SignUp from "./components/Auth/SignUp";
 import StepForm from "./components/HowToForm/StepForm";
+import Reviews from "./components/PostContainer/Reviews";
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -58,8 +59,8 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  submitHowTo = newHowTo => {
-    this.setState({ howToData: newHowTo });
+  submitData = data => {
+    this.setState({ howToData: data });
   };
 
   deleteHowTo = howTo => {
@@ -72,12 +73,14 @@ class App extends React.Component {
   };
 
   logout = () => {
-    localStorage.removeItem('jwt');
-    this.props.history.push('/');
-  }
+    localStorage.removeItem("jwt");
+    this.props.history.push("/");
+  };
 
   filterPost = query => {
-    const search = this.state.howToData.filter(data => data.title.toLowerCase().includes(query.toLowerCase()));
+    const search = this.state.howToData.filter(data =>
+      data.title.toLowerCase().includes(query.toLowerCase())
+    );
     this.setState({ filteredData: search });
   };
 
@@ -109,7 +112,7 @@ class App extends React.Component {
               path="/how-to-form/"
               exact
               render={props => (
-                <HowToForm submitHowTo={this.submitHowTo} {...props} />
+                <HowToForm submitData={this.submitData} {...props} />
               )}
             />
             <Route
@@ -122,7 +125,9 @@ class App extends React.Component {
             <Route
               exact
               path="/step-form"
-              render={props => <StepForm {...props} />}
+              render={props => (
+                <StepForm {...props} submitData={this.submitData} />
+              )}
             />
           </StyledPost>
         </StyledPostPage>
