@@ -56,6 +56,10 @@ class StepForm extends React.Component {
     stepInput.placeholder = "Step Description";
     stepInput.onChange = this.handleChanges;
     container.appendChild(stepInput);
+
+    // const newContainer = document.createElement("div");
+    // newContainer.id = "container";
+    // newContainer.appendChild(newContainer);
   };
 
   render() {

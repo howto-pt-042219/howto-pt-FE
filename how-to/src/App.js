@@ -14,6 +14,7 @@ import Login from "./components/Auth/Login";
 import SignUp from "./components/Auth/SignUp";
 import StepForm from "./components/HowToForm/StepForm";
 import Reviews from "./components/PostContainer/Reviews";
+import EditForm from "./components/PostContainer/EditForm";
 
 const StyledContainer = styled.div`
   margin: 0 auto;
@@ -84,6 +85,16 @@ class App extends React.Component {
     this.setState({ filteredData: search });
   };
 
+  // filterPost = e => {
+  //   e.preventDefault();
+  //   const post = this.state.howToData.filter(post => {
+  //     if (post.title.toLowerCase().includes(e.target.value)) {
+  //       return post;
+  //     }
+  //   });
+  //   this.setState({ filteredData: post });
+  // };
+
   render() {
     return (
       <StyledContainer>
@@ -128,6 +139,11 @@ class App extends React.Component {
               render={props => (
                 <StepForm {...props} submitData={this.submitData} />
               )}
+            />
+            <Route
+              exact
+              path="/edit-form/:id"
+              render={props => <EditForm {...props} />}
             />
           </StyledPost>
         </StyledPostPage>
