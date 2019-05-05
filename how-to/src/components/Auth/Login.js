@@ -20,6 +20,8 @@ const LoginButton = styled.button`
   text-decoration: none;
   width: 100%;
   
+  :disabled {background: grey};
+  :disabled:hover {background: grey; border: white; color: white;};
   :focus {outline: none};
   :hover {background-color: white; color:#115D8D; border: 1px solid #115D8D; cursor: pointer }
 `;
@@ -34,7 +36,6 @@ const InputBox = styled.input`
 
     :focus {outline-color: #b41010};
     :-webkit-autofill {
-     
     -webkit-box-shadow: inset 0 0 0px 9999px white;
     }
     
@@ -90,7 +91,9 @@ class Login extends Component {
               type='text'
             >
             </InputBox>
-            <LoginButton>Login</LoginButton>
+            <LoginButton
+            disabled={!this.state.username || !this.state.password}
+            >Login</LoginButton>
           </form>
         </LoginBox>
       </div>
