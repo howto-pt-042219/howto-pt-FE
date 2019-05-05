@@ -1,5 +1,45 @@
 import React, { Component } from 'react';
+import styled from "styled-components";
 import axios from 'axios';
+
+const LoginBox = styled.form`
+  display: flex;
+  justify-content: center;
+  margin: 10%;
+`;
+
+const LoginButton = styled.button`
+  border: none;
+  border-radius: 5px;
+  background-color: #115D8D;
+  color: white;
+  display: block;
+  font-size: 15px;
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  text-decoration: none;
+  width: 100%;
+  
+  :focus {outline: none};
+  :hover {background-color: white; color:#115D8D; border: 1px solid #115D8D; cursor: pointer }
+`;
+
+const InputBox = styled.input`
+    border-radius: 5px;
+    margin: 1px;
+    padding: 4px;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    border: 2px solid #eee;
+
+    :focus {outline-color: #b41010};
+    :-webkit-autofill {
+     border: 1px solid #ccc;
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
+    }
+    
+}
+`;
 
 class Login extends Component {
   state = {
@@ -29,25 +69,30 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-        <input 
-            name='username'
-            value={this.state.username}
-            onChange={this.handleChange}
-            placeholder='Username'
-            type='text'
-          >
-          </input>
-          <input 
-            name='password'
-            value={this.state.password}
-            onChange={this.handleChange}
-            placeholder='password'
-            type='text'
-          >
-          </input>
-          <button>Login</button>
-        </form>
+        <LoginBox>
+        
+          <form onSubmit={this.handleSubmit}>
+          
+          <InputBox 
+              name='username'
+              value={this.state.username}
+              onChange={this.handleChange}
+              placeholder='Username'
+              type='text'
+            >
+            </InputBox>
+          
+            <InputBox  
+              name='password'
+              value={this.state.password}
+              onChange={this.handleChange}
+              placeholder='password'
+              type='text'
+            >
+            </InputBox>
+            <LoginButton>Login</LoginButton>
+          </form>
+        </LoginBox>
       </div>
     )
   }
