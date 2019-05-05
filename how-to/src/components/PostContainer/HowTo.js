@@ -139,7 +139,7 @@ class HowTo extends React.Component {
             <LikeButton onClick={this.addLikes}>Like</LikeButton>
             <p>{this.state.howToData.likes}</p>
           </LikeDiv>
-          <Link to={"/edit-form/:id"}>
+          <Link to={`/edit-form/${this.props.match.params.id}`}>
             <button>Edit How2</button>
           </Link>
         </div>

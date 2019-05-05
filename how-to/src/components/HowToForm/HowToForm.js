@@ -45,14 +45,6 @@ class HowToForm extends React.Component {
           <h1>How2 Title: {this.state.title}</h1>
           <h2>How2 Overview: {this.state.overview}</h2>
           <h3>Author: {this.state.author}</h3>
-          {/* {this.state.steps.map((step, index) => {
-            return (
-              <div>
-                <h4>{step.title}</h4>
-                <p>{step.description}</p>
-              </div>
-            );
-          })} */}
         </div>
 
         <h1>Follow Steps To Add How2</h1>
