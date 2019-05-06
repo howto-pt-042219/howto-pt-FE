@@ -42,11 +42,13 @@ const StyledInputDiv = styled.div`
 
 const OverviewDiv = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: auto;
   flex-wrap: wrap;
   overflow-wrap: break-word;
   max-width: 500px;
+  margin-top: 0;
 `;
 
 class HowToForm extends React.Component {
@@ -61,6 +63,7 @@ class HowToForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const id = this.props.match.params.id;
     axios
       .post("https://howto-pt-042219.herokuapp.com/api/howto", this.state)
       .then(res => {
@@ -71,7 +74,7 @@ class HowToForm extends React.Component {
       title: "",
       overview: ""
     });
-    this.props.history.push("/step-form");
+    this.props.history.push(`/step-form/${id}`);
   };
 
   handleChanges = e => {
@@ -79,13 +82,15 @@ class HowToForm extends React.Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <StyledContainer>
         <StyledInputDiv>
           <h1>Your How2 </h1>
-          <h1>How2 Title: {this.state.title}</h1>
+          <h2>How2 Title: {this.state.title}</h2>
           <OverviewDiv>
-            <StyledH2>How2 Overview: {this.state.overview}</StyledH2>
+            <StyledH2>How2 Overview: </StyledH2>
+            <p>{this.state.overview}</p>
           </OverviewDiv>
           <h3>Author: {this.state.author}</h3>
         </StyledInputDiv>
