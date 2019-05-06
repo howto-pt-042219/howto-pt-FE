@@ -1,4 +1,4 @@
 [build]
-base = "./howto/"
-publish = "./howto/build/"
+base = "how-to/"
+publish = "how-to/build/"
 command = "yarn build"
