@@ -124,6 +124,18 @@ class HowTo extends React.Component {
     element.classList.toggle("no-show");
   }
 
+  updateHowto = () => {
+    const { id } = this.props.match.params;
+    axios.get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`)
+      .then(res => {
+        this.setState({
+          howToData: res.data,
+          steps: res.data.steps,
+          reviews: res.data.reviews
+        })
+      })
+  }
+
   deleteHowTo = e => {
     const id = this.props.match.params.id;
     this.props.deleteHowTo(id);
@@ -133,12 +145,19 @@ class HowTo extends React.Component {
   addLikes = (e, i) => {
     e.preventDefault();
     const id = this.props.match.params.id;
-    const headers = { authorization: localStorage.getItem("jwt") };
+    const headers = { authorization: localStorage.getItem('jwt') }
     axios
-      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/liked`, {
-        headers
+      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/liked`, id, { headers })
+      .then(() => {
+        // this.setState(prevState => {
+        //   return {
+        //     likes: prevState.liked ? prevState.likes - 1 : prevState.likes + 1,
+        //     liked: !prevState.liked
+        //   };
+        // })
+        this.updateHowto();
       })
-      .then(res => console.log(res.data))
+
       .catch(err => console.log(err));
   };
 
