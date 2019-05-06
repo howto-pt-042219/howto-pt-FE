@@ -100,7 +100,7 @@ class App extends React.Component {
       <StyledContainer>
         <StyledNav>
           <NavBar filterPost={this.filterPost} logout={this.logout} />
-          {console.log("filter data results",this.state.filteredData)}
+          {/* {console.log("filter data results", this.state.filteredData)} */}
         </StyledNav>
         <StyledPostPage>
           <SideNav />
@@ -136,7 +136,7 @@ class App extends React.Component {
             />
             <Route
               exact
-              path="/step-form"
+              path="/step-form/:id"
               render={props => (
                 <StepForm {...props} submitData={this.submitData} />
               )}
