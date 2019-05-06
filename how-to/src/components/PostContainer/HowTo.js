@@ -197,7 +197,7 @@ class HowTo extends React.Component {
 
         <Reviews
           {...this.props}
-          submitData={this.props.submitData}
+          updateHowto={this.updateHowto}
           reviews={this.state.reviews}
         />
         <div />
