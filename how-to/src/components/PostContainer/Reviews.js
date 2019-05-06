@@ -42,7 +42,7 @@ const StyledSubmit = styled.button`
   }
 `;
 
-const StyledForm = styled.div`
+const StyledForm = styled.form`
   margin-bottom: 10px;
   display: flex;
   flex-direction: column;
@@ -61,7 +61,7 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       text: "",
-      user_id: 1
+      user_id: JSON.parse(localStorage.getItem('how2User')).id
     };
   }
 
@@ -86,13 +86,12 @@ class Reviews extends React.Component {
     axios
       .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/reviews`, this.state, { headers })
       .then(res => {
-        console.log(res.data);
+        this.props.updateHowto();
       })
       .catch(err => console.log(err));
     this.setState({
       text: ""
     });
-    this.props.history.push(`/howto/${id}`);
   };
 
   render() {
