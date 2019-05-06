@@ -66,6 +66,7 @@ class Login extends Component {
     axios.post('https://howto-pt-042219.herokuapp.com/api/auth/login', this.state)
       .then(res => {
         localStorage.setItem('jwt', res.data.token);
+        localStorage.setItem('how2User', JSON.stringify(res.data.loggedUser))
         this.props.history.push('/howto');
       }).catch(err => {
         console.log(err);

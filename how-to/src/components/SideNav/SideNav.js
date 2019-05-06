@@ -31,13 +31,13 @@ const StyledButton = styled.button`
   :hover {background-color: white; color:#115D8D; border: 1px solid #115D8D; cursor: pointer }
 `;
 
-function SideNav() {
+function SideNav(props) {
   return (
     <StyledContainer>
-      <StyledButton>Top Rated</StyledButton>
-      <StyledButton>Newest</StyledButton>
-      <StyledButton>Show All</StyledButton>
-      <StyledButton>Your Posts</StyledButton>
+      <StyledButton onClick={() => props.sortBy('likes')}>Top Rated</StyledButton>
+      <StyledButton onClick={() => props.sortBy('id')}>Newest</StyledButton>
+      <StyledButton onClick={() => props.sortBy('all')}>Show All</StyledButton>
+      <StyledButton onClick={() => props.sortBy('author')}>Your Posts</StyledButton>
     </StyledContainer>
   );
 }

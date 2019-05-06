@@ -62,7 +62,13 @@ class App extends React.Component {
   }
 
   submitData = data => {
-    this.setState({ howToData: data });
+    const headers = { authorization: localStorage.getItem('jwt')};
+    axios
+      .get("https://howto-pt-042219.herokuapp.com/api/howto/", { headers })
+      .then(res => {
+        this.setState({ howToData: res.data });
+      })
+      .catch(err => console.log(err));
   };
 
   deleteHowTo = howTo => {
@@ -87,6 +93,23 @@ class App extends React.Component {
     this.setState({ filteredData: search });
   };
 
+  sortBy = (filter) => {
+    if(filter === 'all') {
+      this.setState({ filteredData: [] });
+    } else if(filter === 'author') {
+      console.log(JSON.parse(localStorage.getItem('how2User')).username);
+      const filtered = this.state.howToData.filter(howto => howto.author === JSON.parse(localStorage.getItem('how2User')).username);
+      this.setState({ filteredData: filtered });
+    } else {
+      const sorted = this.state.howToData.sort((a, b) => {
+        return b[filter] - a[filter];
+      });
+      this.setState({ filteredData: sorted });
+    }
+    
+  };
+
+
   // filterPost = e => {
   //   e.preventDefault();
   //   const post = this.state.howToData.filter(post => {
@@ -105,7 +128,7 @@ class App extends React.Component {
           {/* {console.log("filter data results", this.state.filteredData)} */}
         </StyledNav>
         <StyledPostPage>
-          <SideNav />
+          <SideNav sortBy={this.sortBy} />
           <StyledPost>
             <Route path="/" exact component={Login} />
             <Route path="/signup" component={SignUp} />

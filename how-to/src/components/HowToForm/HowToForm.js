@@ -54,7 +54,7 @@ const OverviewDiv = styled.div`
   margin-top: 0;
 `;
 
-const SubmitButton = styled.div`
+const SubmitButton = styled.button`
   display: flex;
   justify-content: center;
   width: 500px;
@@ -73,7 +73,7 @@ class HowToForm extends React.Component {
     this.state = {
       title: "",
       overview: "",
-      user_id: 1
+      user_id: JSON.parse(localStorage.getItem('how2User')).id
     };
   }
 
@@ -84,7 +84,7 @@ class HowToForm extends React.Component {
     axios
       .post("https://howto-pt-042219.herokuapp.com/api/howto", this.state, { headers })
       .then(res => {
-        this.props.submitHowTo(res.data);
+        this.props.submitData();
       })
       .catch(err => console.log(err));
     this.setState({
