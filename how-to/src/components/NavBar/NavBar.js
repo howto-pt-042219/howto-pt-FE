@@ -49,7 +49,7 @@ class NavBar extends React.Component {
     e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
     this.props.filterPost(this.state.search);
-    this.setState({ search: ''});
+    this.setState({ search: "" });
     this.setState({ [e.target.name]: e.target.value });
   };
 
