@@ -79,9 +79,10 @@ class HowToForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
+    const headers = { authorization: localStorage.getItem('jwt') }
     const id = this.props.match.params.id;
     axios
-      .post("https://howto-pt-042219.herokuapp.com/api/howto", this.state)
+      .post("https://howto-pt-042219.herokuapp.com/api/howto", this.state, { headers })
       .then(res => {
         this.props.submitHowTo(res.data);
       })

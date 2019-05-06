@@ -52,8 +52,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    const headers = { authorization: localStorage.getItem('jwt') }
     axios
-      .get("https://howto-pt-042219.herokuapp.com/api/howto/")
+      .get("https://howto-pt-042219.herokuapp.com/api/howto/", { headers })
       .then(res => {
         this.setState({ howToData: res.data });
       })
@@ -65,8 +66,9 @@ class App extends React.Component {
   };
 
   deleteHowTo = howTo => {
+    const headers = { authorization: localStorage.getItem('jwt') }
     axios
-      .delete(`https://howto-pt-042219.herokuapp.com/api/howto/${howTo}`)
+      .delete(`https://howto-pt-042219.herokuapp.com/api/howto/${howTo}`, { headers })
       .then(res => {
         this.setState({ howToData: res.data });
       })
