@@ -9,6 +9,8 @@ const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: lightblue;
+  height: 100%;
 `;
 
 const StyledButton = styled.button`

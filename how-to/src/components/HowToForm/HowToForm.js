@@ -9,6 +9,8 @@ const StyledContainer = styled.div`
   align-items: center;
   flex-wrap: wrap;
   overflow: auto;
+  background-color: lightblue;
+  height: 100%;
 `;
 
 const StyledForm = styled.form`
@@ -21,6 +23,7 @@ const StyledTitleInput = styled.input`
   width: 500px;
   padding 5px;
   height: auto;
+  margin-bottom: 10px;
 `;
 
 const StyledOverViewInput = styled.textarea`
@@ -49,6 +52,19 @@ const OverviewDiv = styled.div`
   overflow-wrap: break-word;
   max-width: 500px;
   margin-top: 0;
+`;
+
+const SubmitButton = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 500px;
+  height: 50px;
+  background-color: #2384a8;
+  color: white;
+  padding: 5px;
+  border-radius: 10px;
+  margin-top: 13px;
+  padding-top: 5px;
 `;
 
 class HowToForm extends React.Component {
@@ -82,7 +98,7 @@ class HowToForm extends React.Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <StyledContainer>
         <StyledInputDiv>
@@ -110,7 +126,7 @@ class HowToForm extends React.Component {
             cols="30"
           />
 
-          <button>Submit How2</button>
+          <SubmitButton>Submit How2</SubmitButton>
         </StyledForm>
       </StyledContainer>
     );
