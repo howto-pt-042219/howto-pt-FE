@@ -11,78 +11,86 @@ class StepForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      addedSteps: [],
       step: {
-        id: this.props.match.params.id,
         title: "",
-        description: ""
+        description: "",
+        num: 1
       }
     };
+  }
+
+  handleChanges = event => {
+    this.setState({ step: {...this.state.step, [event.target.name]: event.target.value} })
   }
 
   submitStep = e => {
     e.preventDefault();
     const id = this.props.match.params.id;
+    const headers = { authorization: localStorage.getItem('jwt') }
     axios
-      .post(
-        `https://howto-pt-042219.herokuapp.com/api//howto/${id}/steps`,
-        this.state
-      )
+      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps`, this.state.step, { headers })
       .then(res => {
-        this.props.submitStep(res.data);
+        this.fetchSteps();
       })
       .catch(err => console.log(err));
     this.setState({
-      id: 0,
-      title: "",
-      description: ""
+      step: {
+        title: "",
+        description: "",
+        num: this.state.step.num + 1
+      }
     });
-    this.props.history.push("/howto");
   };
 
-  handleAddStepInput = e => {
-    e.preventDefault();
-    const container = document.getElementById("container");
-    while (container.hasChildNodes()) {
-      container.removeChild(container.lastChild);
-    }
-    const titleInput = document.createElement("input");
-    titleInput.name = "title";
-    titleInput.placeholder = "Step Title";
-    titleInput.onChange = this.handleChanges;
-    container.appendChild(titleInput);
+  fetchSteps = () => {
+    const id = this.props.match.params.id;
+    const headers = { authorization: localStorage.getItem('jwt') }
+    axios.get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps`, { headers })
+      .then(res => {
+        this.setState({ addedSteps: res.data });
+      })
+      .catch(err => console.log(err));
+  }
 
-    const stepInput = document.createElement("input");
-    stepInput.name = "description";
-    stepInput.placeholder = "Step Description";
-    stepInput.onChange = this.handleChanges;
-    container.appendChild(stepInput);
-
-    // const newContainer = document.createElement("div");
-    // newContainer.id = "container";
-    // newContainer.appendChild(newContainer);
+  finishAdding = () => {
+    const id = this.props.match.params.id;
+    this.props.submitData();
+    this.props.history.push(`/howto/${id}`);
   };
 
   render() {
-    // console.log(this.props);
     return (
       <div>
         <div>
           <h1>Add Steps For How2</h1>
+          <ol>
+            {this.state.addedSteps.map(step => (
+              <li>
+                <h3>{step.title}</h3>
+                <p>{step.description}</p>
+              </li>
+            ))}
+          </ol>
+          
           <form onSubmit={this.submitStep}>
             <input
+              value={this.state.step.title}
               onChange={this.handleChanges}
-              name="stepTitle"
+              name="title"
               placeholder="Step Title"
+              type='text'
             />
             <input
+              value={this.state.step.description}
               onChange={this.handleChanges}
               name="description"
               placeholder="Step Description"
+              type='text'
             />
-            <ContainerDiv id="container" />
-            <button onClick={this.handleAddStepInput}>Add A Step</button>
             <button>Submit Steps</button>
           </form>
+          <button onClick={this.finishAdding}>Done</button>
         </div>
       </div>
     );

@@ -62,7 +62,7 @@ class App extends React.Component {
       .catch(err => console.log(err));
   }
 
-  submitData = data => {
+  submitData = () => {
     const headers = { authorization: localStorage.getItem('jwt')};
     axios
       .get("https://howto-pt-042219.herokuapp.com/api/howto/", { headers })
@@ -79,7 +79,7 @@ class App extends React.Component {
         headers
       })
       .then(res => {
-        this.setState({ howToData: res.data });
+        this.submitData();
       })
       .catch(err => console.log(err));
   };
@@ -100,8 +100,8 @@ class App extends React.Component {
     if(filter === 'all') {
       this.setState({ filteredData: [] });
     } else if(filter === 'author') {
-      console.log(JSON.parse(localStorage.getItem('how2User')).username);
-      const filtered = this.state.howToData.filter(howto => howto.author === JSON.parse(localStorage.getItem('how2User')).username);
+      const { username } = JSON.parse(localStorage.getItem('how2User'));
+      const filtered = this.state.howToData.filter(el => el.author === username);
       this.setState({ filteredData: filtered });
     } else {
       const sorted = this.state.howToData.sort((a, b) => {
