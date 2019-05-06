@@ -6,8 +6,8 @@ class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: "",
-      description: ""
+      text: "",
+      user_id: 1
     };
   }
 
@@ -29,24 +29,18 @@ class Reviews extends React.Component {
     e.preventDefault();
     const id = this.props.match.params.id;
     axios
-      .post(
-        `https://howto-pt-042219.herokuapp.com/api//howto/${id}/steps`,
-        this.state
-      )
+      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/reviews`, this.state)
       .then(res => {
-        this.props.submitData(res.data);
+        console.log(res.data);
       })
       .catch(err => console.log(err));
     this.setState({
-      id: 0,
-      title: "",
-      description: ""
+      text: "",
     });
     this.props.history.push(`/howto/${id}`);
   };
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <h2>Reviews</h2>
@@ -60,21 +54,16 @@ class Reviews extends React.Component {
         })}
         <div>
           <h3>Add A Review</h3>
-          <form onSubmit={this.props.submitData}>
-            <input
-              type="text"
-              placeholder="Title"
-              name="title"
-              value={this.state.title}
+          <form onSubmit={this.submitReview}>
+            <textarea
+              placeholder="What did you think?"
+              name="text"
+              value={this.state.text}
               onChange={this.handleChanges}
-            />
-            <input
-              type="text"
-              placeholder="Review"
-              name="description"
-              value={this.state.description}
-              onChange={this.handleChanges}
-            />
+              rows="8"
+              cols="50"
+            >
+            </textarea>
             <button>Submit Review</button>
           </form>
         </div>

@@ -132,9 +132,11 @@ class HowTo extends React.Component {
         <p>Overview: {this.state.howToData.overview}</p>
         <p>Steps:</p>
         <div>
-          {this.state.steps.map(step => (
-            <Step step={step} />
-          ))}
+          <ol>
+            {this.state.steps.map(step => (
+              <Step step={step} />
+            ))}
+          </ol>
           <LikeDiv>
             <LikeButton onClick={this.addLikes}>Like</LikeButton>
             <p>{this.state.howToData.likes}</p>

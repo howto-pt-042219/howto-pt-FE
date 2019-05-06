@@ -2,12 +2,10 @@ import React from "react";
 
 function Steps(props) {
   return (
-    <div>
-      <ol>
-        <li>{props.step.title}</li>
-      </ol>
+    <>
+      <li>{props.step.title}</li>
       <p>{props.step.description}</p>
-    </div>
+    </>
   );
 }
 

@@ -22,27 +22,26 @@ class EditForm extends React.Component {
     axios
       .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`)
       .then(res => {
-        this.setState({ howto: res.data, steps: res.data.steps });
+        this.setState({ howto: res.data, steps: res.data.steps, title: res.data.title, overview: res.data.overview });
       })
       .catch(err => console.log(err));
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <h3>Title:</h3>
         <form>
           <input
             type="text"
-            value={this.state.howto.title}
+            value={this.state.title}
             name="title"
             onChange={this.handleChange}
           />
           <h3>Overview:</h3>
           <input
             type="text"
-            value={this.state.howto.overview}
+            value={this.state.overview}
             name="overview"
             onChange={this.handleChange}
           />
