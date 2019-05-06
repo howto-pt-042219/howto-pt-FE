@@ -46,13 +46,17 @@ class NavBar extends React.Component {
   }
 
   handleChange = e => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+    this.props.filterPost(this.state.search);
+    this.setState({ search: ''});
     this.setState({ [e.target.name]: e.target.value });
   };
 
   submitSearch = e => {
     e.preventDefault();
     this.props.filterPost(this.state.search)
-    this.setState({ search: ''})
+    this.setState({ search: ''});
   }
 
   render() {
