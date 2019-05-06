@@ -55,15 +55,9 @@ class NavBar extends React.Component {
 
   submitSearch = e => {
     e.preventDefault();
-    // <<<<<<< HEAD
     this.props.filterPost(this.state.search);
     this.setState({ search: "" });
   };
-  // =======
-  //   this.props.filterPost(this.state.search);
-  //   this.setState({ search: "" });
-  // };
-  // >>>>>>> a7865c29deb4ba4fc86710d99517296746814231
 
   render() {
     return (

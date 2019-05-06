@@ -6,17 +6,20 @@ import { Link } from "react-router-dom";
 import Reviews from "./Reviews";
 
 const StyledButton = styled.button`
+  display: flex;
   border: none;
   color: white;
   background-color: #b41010;
-  margin-left: 146px;
+  // margin-left: 146px;
+  align-self: flex-end;
 `;
 
 const ContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
+  background-color: lightblue;
+  height: 100%;
 `;
 
 const ButtonDiv = styled.div`
@@ -31,6 +34,7 @@ const DeleteButton = styled.button`
   border-radius: 5px;
   width: 75px;
   height: 20px;
+
   :hover {
     background-color: lightgrey;
     color: #b41010;
@@ -43,6 +47,9 @@ const LikeButton = styled.button`
   border-radius: 10px;
   background-color: #2384a8;
   color: white;
+  margin-right: 5px;
+  margin-top: 14px;
+  height: 25px;
   :hover {
     color: #b41010;
     cursor: pointer;
@@ -50,6 +57,38 @@ const LikeButton = styled.button`
   :focus {
     outline: none;
   }
+`;
+
+const EditButton = styled.button`
+  width: 75px;
+  border-radius: 10px;
+  background-color: #2384a8;
+  color: white;
+  height: 25px;
+  margin-top: 14px;
+  :focus {
+    outline: none;
+  }
+`;
+
+const LikeButtonDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background-color: lightgrey;
+  border-radius: 10px;
+  width: 100%;
+  padding: 10px;
+`;
+
+const PostDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: white;
+  width: 700px;
+  border-radius: 10px;
+  margin-top: 10px;
 `;
 
 const LikeDiv = styled.div`
@@ -108,30 +147,39 @@ class HowTo extends React.Component {
     return (
       <ContainerDiv>
         {/* {this.props.username === token.name ? <button onClick={this.handleDelete}>X</button> : null} */}
-        <StyledButton onClick={this.toggleDisplay}>X</StyledButton>
-        <div id="delete" className="no-show show">
-          <h3>Are you sure you want to delete this How To?</h3>
-          <ButtonDiv>
-            <DeleteButton onClick={this.deleteHowTo}>Yes</DeleteButton>
-            <DeleteButton onClick={this.toggleDisplay}>No</DeleteButton>
-          </ButtonDiv>
-        </div>
-        <h1>{this.state.howToData.title}</h1>
-        <h2>How2 by: {this.state.howToData.author}</h2>
-        <p>Overview: {this.state.howToData.overview}</p>
-        <p>Steps:</p>
-        <div>
-          {this.state.steps.map(step => (
-            <Step step={step} />
-          ))}
-          <LikeDiv>
-            <LikeButton onClick={this.addLikes}>Like</LikeButton>
-            <p>{this.state.howToData.likes}</p>
-          </LikeDiv>
-          <Link to={`/edit-form/${this.props.match.params.id}`}>
-            <button>Edit How2</button>
-          </Link>
-        </div>
+
+        <PostDiv>
+          <StyledButton onClick={this.toggleDisplay}>X</StyledButton>
+          <div id="delete" className="no-show show">
+            <h3>Are you sure you want to delete this How To?</h3>
+            <ButtonDiv>
+              <DeleteButton onClick={this.deleteHowTo}>Yes</DeleteButton>
+              <DeleteButton onClick={this.toggleDisplay}>No</DeleteButton>
+            </ButtonDiv>
+          </div>
+          <h1>{this.state.howToData.title}</h1>
+          <h2>How2 by: {this.state.howToData.author}</h2>
+          <p>Overview: {this.state.howToData.overview}</p>
+          <p>Steps:</p>
+          <div>
+            <ol>
+              {this.state.steps.map(step => (
+                <Step step={step} />
+              ))}
+            </ol>
+          </div>
+
+          <LikeButtonDiv>
+            <Link to={`/edit-form/${this.props.match.params.id}`}>
+              <EditButton>Edit </EditButton>
+            </Link>
+            <LikeDiv>
+              <LikeButton onClick={this.addLikes}>Like</LikeButton>
+              <p>Likes: {this.state.howToData.likes}</p>
+            </LikeDiv>
+          </LikeButtonDiv>
+        </PostDiv>
+
         <Reviews
           {...this.props}
           submitData={this.props.submitData}

@@ -32,12 +32,34 @@ class EditForm extends React.Component {
       .catch(err => console.log(err));
   }
 
+  submitHowtoChanges = e => {
+    const id = this.props.match.params.id;
+    e.preventDefault();
+    axios
+      .put(`https://howto-pt-042219.herokuapp.com/api//howto/${id}`)
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
+  submitStepChanges = e => {
+    const id = this.props.match.params.id;
+    e.preventDefault();
+    axios
+      .put(
+        `https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps/${
+          this.state.steps.id
+        }`
+      )
+      .then(res => console.log(res))
+      .catch(err => console.log(err));
+  };
+
   render() {
     console.log(this.state);
     return (
       <div>
         <h3>Title:</h3>
-        <form>
+        <form onSubmit={this.submitHowtoChanges}>
           <input
             type="text"
             value={this.state.title}
@@ -56,7 +78,7 @@ class EditForm extends React.Component {
           return (
             <div>
               <h3>Steps:</h3>
-              <form>
+              <form onSubmit={this.submitStepChanges}>
                 <input
                   type="text"
                   value={step.title}
@@ -69,6 +91,7 @@ class EditForm extends React.Component {
                   name="description"
                   onChange={this.handleChange}
                 />
+                <button>Submit</button>
               </form>
             </div>
           );
