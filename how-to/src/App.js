@@ -19,23 +19,24 @@ import EditForm from "./components/PostContainer/EditForm";
 const StyledContainer = styled.div`
   margin: 0 auto;
   width: 1000px;
-  border: 1px solid green;
+  // border: 1px solid green;
 `;
 
 const StyledNav = styled.div`
   display: flex;
-  border: 1px solid purple;
+  border: 1px solid black;
   height: 100%;
 `;
 
 const StyledPostPage = styled.div`
   display: flex;
-  border: 1px solid yellow;
+  border: 1px solid black;
+  border-top: none;
 `;
 
 const StyledPost = styled.div`
   width: 800px;
-  border: 1px solid blue;
+  // border: 1px solid blue;
 `;
 
 // const PostMarginLeft = styled.div`
@@ -52,7 +53,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const headers = { authorization: localStorage.getItem('jwt') }
+    const headers = { authorization: localStorage.getItem("jwt") };
     axios
       .get("https://howto-pt-042219.herokuapp.com/api/howto/", { headers })
       .then(res => {
@@ -72,9 +73,11 @@ class App extends React.Component {
   };
 
   deleteHowTo = howTo => {
-    const headers = { authorization: localStorage.getItem('jwt') }
+    const headers = { authorization: localStorage.getItem("jwt") };
     axios
-      .delete(`https://howto-pt-042219.herokuapp.com/api/howto/${howTo}`, { headers })
+      .delete(`https://howto-pt-042219.herokuapp.com/api/howto/${howTo}`, {
+        headers
+      })
       .then(res => {
         this.submitData();
       })

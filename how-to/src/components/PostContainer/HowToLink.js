@@ -30,6 +30,8 @@ const StyledP = styled.p`
   height: auto;
 `;
 
+const BoldP = styled.p``;
+
 class HowToLink extends React.Component {
   constructor(props) {
     super(props);

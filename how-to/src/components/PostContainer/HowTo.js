@@ -116,29 +116,34 @@ class HowTo extends React.Component {
 
   updateHowto = () => {
     const { id } = this.props.match.params;
-    const headers = { authorization: localStorage.getItem('jwt') }
-    axios.get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`, { headers })
+    const headers = { authorization: localStorage.getItem("jwt") };
+    axios
+      .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`, { headers })
       .then(res => {
         this.setState({
           howToData: res.data,
           steps: res.data.steps,
           reviews: res.data.reviews
-        })
-      }).catch(err => console.log(err));
-  }
+        });
+      })
+      .catch(err => console.log(err));
+  };
 
   deleteHowTo = e => {
     const id = this.props.match.params.id;
     this.props.deleteHowTo(id);
+    this.forceUpdate();
     this.props.history.push("/howto");
   };
 
   addLikes = (e, i) => {
     e.preventDefault();
     const id = this.props.match.params.id;
-    const headers = { authorization: localStorage.getItem('jwt') }
+    const headers = { authorization: localStorage.getItem("jwt") };
     axios
-      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/liked`, id, { headers })
+      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/liked`, id, {
+        headers
+      })
       .then(() => {
         // this.setState(prevState => {
         //   return {

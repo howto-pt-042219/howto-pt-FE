@@ -1,0 +1,4 @@
+[build]
+base = "./howto/"
+publish = "./howto/build/"
+command = "yarn build"
