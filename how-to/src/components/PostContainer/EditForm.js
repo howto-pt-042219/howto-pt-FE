@@ -2,6 +2,49 @@ import React from "react";
 import axios from "axios";
 import styled from "styled-components";
 
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: lightblue;
+  height: 100%;
+`;
+
+const StyledInput = styled.input`
+  width: 400px;
+  padding: 10px;
+`;
+
+const StyledSubmit = styled.button`
+  display: flex;
+  width: 75px;
+  border-radius: 10px;
+  background-color: #2384a8;
+  color: white;
+  height: 25px;
+  margin-top: 14px;
+  :focus {
+    outline: none;
+  }
+`;
+
+const InputDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+const FlexH3 = styled.h3`
+  display: flex;
+  align-self: center;
+`;
+
+const StyledForm = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 class EditForm extends React.Component {
   constructor(props) {
     super(props);
@@ -19,7 +62,7 @@ class EditForm extends React.Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
-    const headers = { authorization: localStorage.getItem('jwt') }
+    const headers = { authorization: localStorage.getItem("jwt") };
     axios
       .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`, { headers })
       .then(res => {
@@ -58,46 +101,50 @@ class EditForm extends React.Component {
   render() {
     console.log(this.state);
     return (
-      <div>
-        <h3>Title:</h3>
-        <form onSubmit={this.submitHowtoChanges}>
-          <input
-            type="text"
-            value={this.state.title}
-            name="title"
-            onChange={this.handleChange}
-          />
-          <h3>Overview:</h3>
-          <input
-            type="text"
-            value={this.state.overview}
-            name="overview"
-            onChange={this.handleChange}
-          />
-        </form>
+      <StyledContainer>
+        <InputDiv>
+          <h3>Title:</h3>
+          <StyledForm onSubmit={this.submitHowtoChanges}>
+            <StyledInput
+              type="text"
+              value={this.state.title}
+              name="title"
+              onChange={this.handleChange}
+            />
+            <FlexH3>Overview:</FlexH3>
+            <StyledInput
+              type="text"
+              value={this.state.overview}
+              name="overview"
+              onChange={this.handleChange}
+            />
+            <StyledSubmit>Submit</StyledSubmit>
+          </StyledForm>
+        </InputDiv>
+
         {this.state.steps.map(step => {
           return (
-            <div>
+            <InputDiv>
               <h3>Steps:</h3>
-              <form onSubmit={this.submitStepChanges}>
-                <input
+              <StyledForm onSubmit={this.submitStepChanges}>
+                <StyledInput
                   type="text"
                   value={step.title}
                   name="title"
                   onChange={this.handleChange}
                 />
-                <input
+                <StyledInput
                   type="text"
                   value={step.description}
                   name="description"
                   onChange={this.handleChange}
                 />
-                <button>Submit</button>
-              </form>
-            </div>
+                <StyledSubmit>Submit</StyledSubmit>
+              </StyledForm>
+            </InputDiv>
           );
         })}
-      </div>
+      </StyledContainer>
     );
   }
 }

@@ -10,7 +10,7 @@ const StyledContainer = styled.div`
   width: 223px;
   height: 938px;
   padding-top: 11%;
-  border: 1px solid red;
+  border-right: 1px solid black;
   background-color: rgba(236, 242, 93, 0.09);
 `;
 
