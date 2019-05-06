@@ -58,7 +58,6 @@ class NavBar extends React.Component {
     this.props.filterPost(this.state.search);
     this.setState({ search: "" });
   };
-=======
 
   render() {
     return (

@@ -28,8 +28,9 @@ class Reviews extends React.Component {
   submitReview = e => {
     e.preventDefault();
     const id = this.props.match.params.id;
+    const headers = { authorization: localStorage.getItem('jwt') }
     axios
-      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/reviews`, this.state)
+      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/reviews`, this.state, { headers })
       .then(res => {
         console.log(res.data);
       })

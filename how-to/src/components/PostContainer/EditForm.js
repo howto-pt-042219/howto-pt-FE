@@ -19,8 +19,9 @@ class EditForm extends React.Component {
 
   componentDidMount() {
     const id = this.props.match.params.id;
+    const headers = { authorization: localStorage.getItem('jwt') }
     axios
-      .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`)
+      .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`, { headers })
       .then(res => {
         this.setState({ howto: res.data, steps: res.data.steps, title: res.data.title, overview: res.data.overview });
       })

@@ -68,17 +68,7 @@ class HowTo extends React.Component {
   }
 
   componentDidMount() {
-    const id = this.props.match.params.id;
-    axios
-      .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`)
-      .then(res => {
-        this.setState({
-          howToData: res.data,
-          steps: res.data.steps,
-          reviews: res.data.reviews
-        });
-      })
-      .catch(err => console.log(err));
+    this.updateHowto();
   }
 
   toggleDisplay() {
@@ -88,14 +78,15 @@ class HowTo extends React.Component {
 
   updateHowto = () => {
     const { id } = this.props.match.params;
-    axios.get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`)
+    const headers = { authorization: localStorage.getItem('jwt') }
+    axios.get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`, { headers })
       .then(res => {
         this.setState({
           howToData: res.data,
           steps: res.data.steps,
           reviews: res.data.reviews
         })
-      })
+      }).catch(err => console.log(err));
   }
 
   deleteHowTo = e => {
