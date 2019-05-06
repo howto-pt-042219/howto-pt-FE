@@ -76,6 +76,7 @@ class SignUp extends Component {
     axios.post('https://howto-pt-042219.herokuapp.com/api/auth/register', this.state)
       .then(res => {
         localStorage.setItem('jwt', res.data.token);
+        this.props.history.push('/');
       }).catch(err => {
         console.log(err);
       })
