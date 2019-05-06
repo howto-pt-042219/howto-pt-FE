@@ -32,19 +32,21 @@ class EditForm extends React.Component {
     return (
       <div>
         <h3>Title:</h3>
-        <input
-          type="text"
-          value={this.state.howto.title}
-          name="title"
-          onChange={this.handleChange}
-        />
-        <h3>Overview:</h3>
-        <input
-          type="text"
-          value={this.state.howto.overview}
-          name="overview"
-          onChange={this.handleChange}
-        />
+        <form>
+          <input
+            type="text"
+            value={this.state.howto.title}
+            name="title"
+            onChange={this.handleChange}
+          />
+          <h3>Overview:</h3>
+          <input
+            type="text"
+            value={this.state.howto.overview}
+            name="overview"
+            onChange={this.handleChange}
+          />
+        </form>
         {this.state.steps.map(step => {
           return (
             <div>

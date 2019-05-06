@@ -23,6 +23,13 @@ const StyledLikes = styled.div`
   width: 100%;
 `;
 
+const StyledP = styled.p`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: auto;
+`;
+
 class HowToLink extends React.Component {
   constructor(props) {
     super(props);
@@ -39,15 +46,8 @@ class HowToLink extends React.Component {
       <StyledLink to={`/howto/${this.props.post.id}`}>
         <ContainerDiv>
           <h1>{this.props.post.title}</h1>
-          <p>{this.props.post.overview}</p>
-          {/* <p>
-          {this.props.post.steps.map(step => {
-            <>
-              <h3>step.title</h3>
-              <p>step.description</p>
-            </>;
-          })}
-        </p> */}
+          <StyledP>{this.props.post.overview}</StyledP>
+
           <StyledLikes>
             <p>{this.props.post.likes} Likes</p>
             <p>{this.props.post.tries} Tries</p>
