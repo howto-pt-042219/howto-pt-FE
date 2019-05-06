@@ -22,6 +22,21 @@ const StyledImg = styled.img`
   background-color: white;
 `;
 
+const NavInputBox = styled.input`
+    border-radius: 5px;
+    margin: 1px;
+    padding: 4px;
+    -webkit-appearance: none; 
+    -moz-appearance: none; 
+    border: 2px solid #eee;
+
+    :focus {outline-color: #b41010};
+    :-webkit-autofill {
+    -webkit-box-shadow: inset 0 0 0px 9999px white;
+    }
+    
+}
+`;
 class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +46,10 @@ class NavBar extends React.Component {
   }
 
   handleChange = e => {
+    e.preventDefault();
+    this.setState({ [e.target.name]: e.target.value });
+    this.props.filterPost(this.state.search);
+    this.setState({ search: ''});
     this.setState({ [e.target.name]: e.target.value });
   };
 
@@ -39,6 +58,7 @@ class NavBar extends React.Component {
     this.props.filterPost(this.state.search);
     this.setState({ search: "" });
   };
+=======
 
   render() {
     return (
@@ -52,7 +72,7 @@ class NavBar extends React.Component {
         <StyledDiv>
           <h3>Username</h3>
           <form onSubmit={this.submitSearch}>
-            <input
+            <NavInputBox
               placeholder="search"
               name="search"
               value={this.state.search}
