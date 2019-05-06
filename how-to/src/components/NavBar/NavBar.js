@@ -55,9 +55,10 @@ class NavBar extends React.Component {
 
   submitSearch = e => {
     e.preventDefault();
-    this.props.filterPost(this.state.search)
-    this.setState({ search: ''});
-  }
+    this.props.filterPost(this.state.search);
+    this.setState({ search: "" });
+  };
+=======
 
   render() {
     return (
@@ -70,14 +71,13 @@ class NavBar extends React.Component {
         </Link>
         <StyledDiv>
           <h3>Username</h3>
-
           <form onSubmit={this.submitSearch}>
             <NavInputBox
               placeholder="search"
               name="search"
               value={this.state.search}
               onChange={this.handleChange}
-              type='text'
+              type="text"
             />
           </form>
         </StyledDiv>

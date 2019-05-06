@@ -3,6 +3,7 @@ import axios from "axios";
 import Step from "./Steps";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import Reviews from "./Reviews";
 
 const StyledButton = styled.button`
   border: none;
@@ -17,17 +18,6 @@ const ContainerDiv = styled.div`
   align-items: center;
   margin-top: 20px;
 `;
-
-// const DeleteDiv = styled.div`
-//   background-color: lightgrey;
-//   border-radius: 5px;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   padding: 15px;
-//   margin-top: 5px;
-//   border: 1px solid #b41010;
-// `;
 
 const ButtonDiv = styled.div`
   display: flex;
@@ -48,12 +38,32 @@ const DeleteButton = styled.button`
   }
 `;
 
+const LikeButton = styled.button`
+  width: 75px;
+  border-radius: 10px;
+  background-color: #2384a8;
+  color: white;
+  :hover {
+    color: #b41010;
+    cursor: pointer;
+  }
+  :focus {
+    outline: none;
+  }
+`;
+
+const LikeDiv = styled.div`
+  display: flex;
+`;
+
 class HowTo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       howToData: [],
-      steps: []
+      steps: [],
+      reviews: [],
+      liked: false
     };
   }
 
@@ -62,7 +72,11 @@ class HowTo extends React.Component {
     axios
       .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`)
       .then(res => {
-        this.setState({ howToData: res.data, steps: res.data.steps });
+        this.setState({
+          howToData: res.data,
+          steps: res.data.steps,
+          reviews: res.data.reviews
+        });
       })
       .catch(err => console.log(err));
   }
@@ -78,8 +92,30 @@ class HowTo extends React.Component {
     this.props.history.push("/howto");
   };
 
+  addLikes = (e, i) => {
+    e.preventDefault();
+    this.setState(prevState => {
+      return {
+        likes: prevState.liked ? prevState.likes - 1 : prevState.likes + 1,
+        liked: !prevState.liked
+      };
+    });
+    const id = this.props.match.params.id;
+    axios
+      .post(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`)
+      .then(
+        this.setState(prevState => {
+          return {
+            likes: prevState.liked ? prevState.likes - 1 : prevState.likes + 1,
+            liked: !prevState.liked
+          };
+        })
+      )
+      .catch(err => console.log(err));
+  };
+
   render() {
-    // console.log(this.state.howToData);
+    // console.log(this.state);
     return (
       <ContainerDiv>
         {/* {this.props.username === token.name ? <button onClick={this.handleDelete}>X</button> : null} */}
@@ -96,10 +132,25 @@ class HowTo extends React.Component {
         <p>Overview: {this.state.howToData.overview}</p>
         <p>Steps:</p>
         <div>
-          {this.state.steps.map(step => (
-            <Step step={step} />
-          ))}
+          <ol>
+            {this.state.steps.map(step => (
+              <Step step={step} />
+            ))}
+          </ol>
+          <LikeDiv>
+            <LikeButton onClick={this.addLikes}>Like</LikeButton>
+            <p>{this.state.howToData.likes}</p>
+          </LikeDiv>
+          <Link to={`/edit-form/${this.props.match.params.id}`}>
+            <button>Edit How2</button>
+          </Link>
         </div>
+        <Reviews
+          {...this.props}
+          submitData={this.props.submitData}
+          reviews={this.state.reviews}
+        />
+        <div />
       </ContainerDiv>
     );
   }
