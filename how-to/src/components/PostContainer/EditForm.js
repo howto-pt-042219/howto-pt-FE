@@ -77,22 +77,15 @@ class EditForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleStepChange = id => {
-    this.setState(state => {
-      let temp = state.steps.map(step => {
-        if (step.id === id) {
-          return {
-            ...step,
-            title: this.state.stepTitle,
-            description: this.state.stepDescription
-          };
-        } else {
-          return { ...step };
-        }
-      });
-      return temp;
-    });
-  };
+
+  handleStepChange = (e, i) => {
+    let steps = [...this.state.steps];
+    let step = {...steps[i]};
+    step[e.target.name] = e.target.value;
+    steps[i] = step;
+    this.setState({steps})
+  }
+
 
   componentDidMount() {
     const id = this.props.match.params.id;
@@ -127,14 +120,21 @@ class EditForm extends React.Component {
       .catch(err => console.log(err));
   };
 
-  submitStepChanges = (e, stepId) => {
+
+  submitStepChanges = (e, i) => {
+
     const id = this.props.match.params.id;
-    e.preventDefault();
+    const headers = { authorization: localStorage.getItem('jwt') }
+    e.preventDefault(); 
     axios
-      .put(
-        `https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps/${stepId}`
-      )
-      .then(res => console.log(res))
+
+      .put(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps/${this.state.steps[i].id}`, this.state.steps[i], { headers })
+      .then(res => {
+        let steps = [...this.state.steps];
+        steps.splice(i, 1);
+        this.setState({steps})
+      })
+
       .catch(err => console.log(err));
   };
 
@@ -161,11 +161,30 @@ class EditForm extends React.Component {
             <StyledSubmit>Submit</StyledSubmit>
           </StyledForm>
         </InputDiv>
-        <Link to={`/edit-step-form/${this.props.match.params.id}`}>
-          <StyledSubmit>Edit Steps</StyledSubmit>
-        </Link>
-        {this.state.steps.map(step => {
-          return <EditStepForm step={step} steps={this.state.steps} />;
+
+
+        {this.state.steps.map((step, i) => {
+          return (
+            <InputDiv>
+              <h3>Steps:</h3>
+              <StyledForm onSubmit={(e) => this.submitStepChanges(e, i)}>
+                <StyledInput
+                  type="text"
+                  value={this.state.steps[i].title}
+                  name="title"
+                  onChange={(e) => this.handleStepChange(e, i)}
+                />
+                <StyledInput
+                  type="text"
+                  value={this.state.steps[i].description}
+                  name="description"
+                  onChange={(e) => this.handleStepChange(e, i)}
+                />
+                <StyledSubmit>Submit</StyledSubmit>
+              </StyledForm>
+            </InputDiv>
+          );
+
         })}
       </StyledContainer>
     );
