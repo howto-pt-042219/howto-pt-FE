@@ -60,6 +60,14 @@ class EditForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleStepChange = (e, i) => {
+    let steps = [...this.state.steps];
+    let step = {...steps[i]};
+    step[e.target.name] = e.target.value;
+    steps[i] = step;
+    this.setState({steps})
+  }
+
   componentDidMount() {
     const id = this.props.match.params.id;
     const headers = { authorization: localStorage.getItem("jwt") };
@@ -85,16 +93,17 @@ class EditForm extends React.Component {
       .catch(err => console.log(err));
   };
 
-  submitStepChanges = e => {
+  submitStepChanges = (e, i) => {
     const id = this.props.match.params.id;
-    e.preventDefault();
+    const headers = { authorization: localStorage.getItem('jwt') }
+    e.preventDefault(); 
     axios
-      .put(
-        `https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps/${
-          this.state.steps.id
-        }`
-      )
-      .then(res => console.log(res))
+      .put(`https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps/${this.state.steps[i].id}`, this.state.steps[i], { headers })
+      .then(res => {
+        let steps = [...this.state.steps];
+        steps.splice(i, 1);
+        this.setState({steps})
+      })
       .catch(err => console.log(err));
   };
 
@@ -122,22 +131,22 @@ class EditForm extends React.Component {
           </StyledForm>
         </InputDiv>
 
-        {this.state.steps.map(step => {
+        {this.state.steps.map((step, i) => {
           return (
             <InputDiv>
               <h3>Steps:</h3>
-              <StyledForm onSubmit={this.submitStepChanges}>
+              <StyledForm onSubmit={(e) => this.submitStepChanges(e, i)}>
                 <StyledInput
                   type="text"
-                  value={step.title}
+                  value={this.state.steps[i].title}
                   name="title"
-                  onChange={this.handleChange}
+                  onChange={(e) => this.handleStepChange(e, i)}
                 />
                 <StyledInput
                   type="text"
-                  value={step.description}
+                  value={this.state.steps[i].description}
                   name="description"
-                  onChange={this.handleChange}
+                  onChange={(e) => this.handleStepChange(e, i)}
                 />
                 <StyledSubmit>Submit</StyledSubmit>
               </StyledForm>
