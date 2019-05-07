@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledContainer = styled.div`
   display: flex;
@@ -23,6 +24,20 @@ const StyledSubmit = styled.button`
   color: white;
   height: 25px;
   margin-top: 14px;
+  :focus {
+    outline: none;
+  }
+`;
+
+const StepInput = styled.button`
+  display: flex;
+  width: 75px;
+  border-radius: 10px;
+  background-color: #2384a8;
+  color: white;
+  height: 25px;
+  margin-top: 14px;
+  margin-bottom: 10px;
   :focus {
     outline: none;
   }
@@ -52,6 +67,8 @@ class EditForm extends React.Component {
       howto: [],
       title: "",
       overview: "",
+      stepTitle: "",
+      stepDescription: "",
       steps: []
     };
   }
@@ -60,16 +77,36 @@ class EditForm extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleStepChange = id => {
+    this.setState(state => {
+      let temp = state.steps.map(step => {
+        if (step.id === id) {
+          return {
+            ...step,
+            title: this.state.stepTitle,
+            description: this.state.stepDescription
+          };
+        } else {
+          return { ...step };
+        }
+      });
+      return temp;
+    });
+  };
+
   componentDidMount() {
     const id = this.props.match.params.id;
     const headers = { authorization: localStorage.getItem("jwt") };
     axios
       .get(`https://howto-pt-042219.herokuapp.com/api/howto/${id}`, { headers })
       .then(res => {
+        console.log(res.data.steps);
         this.setState({
           howto: res.data,
           steps: res.data.steps,
           title: res.data.title,
+          stepTitle: res.data.steps.title,
+          stepDescription: res.data.steps.description,
           overview: res.data.overview
         });
       })
@@ -78,28 +115,31 @@ class EditForm extends React.Component {
 
   submitHowtoChanges = e => {
     const id = this.props.match.params.id;
+    const headers = { authorization: localStorage.getItem("jwt") };
     e.preventDefault();
     axios
-      .put(`https://howto-pt-042219.herokuapp.com/api//howto/${id}`)
+      .put(
+        `https://howto-pt-042219.herokuapp.com/api//howto/${id}`,
+        { title: this.state.title, overview: this.state.overview },
+        { headers }
+      )
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
 
-  submitStepChanges = e => {
+  submitStepChanges = (e, stepId) => {
     const id = this.props.match.params.id;
     e.preventDefault();
     axios
       .put(
-        `https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps/${
-          this.state.steps.id
-        }`
+        `https://howto-pt-042219.herokuapp.com/api/howto/${id}/steps/${stepId}`
       )
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
     return (
       <StyledContainer>
         <InputDiv>
@@ -121,28 +161,11 @@ class EditForm extends React.Component {
             <StyledSubmit>Submit</StyledSubmit>
           </StyledForm>
         </InputDiv>
-
+        <Link to={`/edit-step-form/${this.props.match.params.id}`}>
+          <StyledSubmit>Edit Steps</StyledSubmit>
+        </Link>
         {this.state.steps.map(step => {
-          return (
-            <InputDiv>
-              <h3>Steps:</h3>
-              <StyledForm onSubmit={this.submitStepChanges}>
-                <StyledInput
-                  type="text"
-                  value={step.title}
-                  name="title"
-                  onChange={this.handleChange}
-                />
-                <StyledInput
-                  type="text"
-                  value={step.description}
-                  name="description"
-                  onChange={this.handleChange}
-                />
-                <StyledSubmit>Submit</StyledSubmit>
-              </StyledForm>
-            </InputDiv>
-          );
+          return <EditStepForm step={step} steps={this.state.steps} />;
         })}
       </StyledContainer>
     );
