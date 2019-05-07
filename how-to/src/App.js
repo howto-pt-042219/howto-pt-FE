@@ -63,7 +63,7 @@ class App extends React.Component {
   }
 
   submitData = () => {
-    const headers = { authorization: localStorage.getItem('jwt')};
+    const headers = { authorization: localStorage.getItem("jwt") };
     axios
       .get("https://howto-pt-042219.herokuapp.com/api/howto/", { headers })
       .then(res => {
@@ -96,12 +96,14 @@ class App extends React.Component {
     this.setState({ filteredData: search });
   };
 
-  sortBy = (filter) => {
-    if(filter === 'all') {
+  sortBy = filter => {
+    if (filter === "all") {
       this.setState({ filteredData: [] });
-    } else if(filter === 'author') {
-      const { username } = JSON.parse(localStorage.getItem('how2User'));
-      const filtered = this.state.howToData.filter(el => el.author === username);
+    } else if (filter === "author") {
+      const { username } = JSON.parse(localStorage.getItem("how2User"));
+      const filtered = this.state.howToData.filter(
+        el => el.author === username
+      );
       this.setState({ filteredData: filtered });
     } else {
       const sorted = this.state.howToData.sort((a, b) => {
@@ -109,9 +111,7 @@ class App extends React.Component {
       });
       this.setState({ filteredData: sorted });
     }
-    
   };
-
 
   // filterPost = e => {
   //   e.preventDefault();
@@ -173,6 +173,11 @@ class App extends React.Component {
               exact
               path="/edit-form/:id"
               render={props => <EditForm {...props} />}
+            />
+            <Route
+              exact
+              path="/edit-step-form/:id"
+              render={props => <EditStepForm />}
             />
           </StyledPost>
         </StyledPostPage>
